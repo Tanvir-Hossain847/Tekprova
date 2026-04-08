@@ -11,7 +11,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={cn("h-full", "antialiased", "font-sans", spaceGrotesk.variable, oxaniumHeading.variable)}
+      className={cn("h-full dark", "antialiased", "font-sans", spaceGrotesk.variable, oxaniumHeading.variable)}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
