@@ -26,7 +26,7 @@ const services = [
   },
   {
     number: "06",
-    title: "Consulting",
+    title: "CMS Based Web Apps",
     description: "Strategic guidance to help you make the right technical decisions.",
   },
 ];

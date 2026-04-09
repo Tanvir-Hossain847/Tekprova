@@ -34,7 +34,7 @@ export default function ContactUs() {
                 value={form.name}
                 onChange={handleChange}
                 placeholder="Your name"
-                className="w-full bg-muted border border-border rounded-sm px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors duration-200"
+                className="w-full bg-card border border-border rounded-sm px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors duration-200"
               />
             </div>
             <div>
@@ -45,7 +45,7 @@ export default function ContactUs() {
                 value={form.email}
                 onChange={handleChange}
                 placeholder="your@email.com"
-                className="w-full bg-muted border border-border rounded-sm px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors duration-200"
+                className="w-full bg-card border border-border rounded-sm px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors duration-200"
               />
             </div>
             <div>
@@ -56,7 +56,7 @@ export default function ContactUs() {
                 onChange={handleChange}
                 rows={5}
                 placeholder="Tell us about your project..."
-                className="w-full bg-muted border border-border rounded-sm px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors duration-200 resize-none"
+                className="w-full bg-card border border-border rounded-sm px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors duration-200 resize-none"
               />
             </div>
             <button

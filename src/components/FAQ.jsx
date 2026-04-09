@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Cubes from '@/components/Cubes';
 
 const faqs = [
   {
@@ -45,8 +46,18 @@ export default function FAQ() {
             >
               Ask us anything
             </button>
-            <div className="mt-12 h-48 rounded-sm bg-muted border border-border flex items-center justify-center">
-              <p className="text-muted-foreground text-sm">[ Animation: floating illustration ]</p>
+            <div className="mt-12 h-45 rounded-sm overflow-hidden">
+              <Cubes
+                gridSize={10}
+                maxAngle={45}
+                radius={3}
+                borderStyle="1px dashed #a3e635"
+                faceColor="#0d0d0d"
+                rippleColor="#a3e635"
+                rippleSpeed={1.5}
+                autoAnimate
+                rippleOnClick
+              />
             </div>
           </div>
 

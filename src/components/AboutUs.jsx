@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import CardSwap, { Card } from '@/components/CardSwap';
+import BorderGlow from '@/components/BorderGlow';
 
 const projects = [
   {
@@ -24,7 +25,7 @@ const projects = [
 
 function ProjectCard({ title, category, year, img }) {
   return (
-    <div className="w-full h-full flex flex-col overflow-hidden rounded-xl">
+    <div className="w-full h-full flex flex-col overflow-hidden rounded-sm">
       {/* Image */}
       <div className="relative w-full flex-1 min-h-0">
         <Image
@@ -39,7 +40,7 @@ function ProjectCard({ title, category, year, img }) {
       </div>
 
       {/* Footer */}
-      <div className="px-5 py-4 flex items-end justify-between bg-card">
+      <div className="px-5 py-4 border-2 border-secondary flex items-end justify-between bg-card">
         <div>
           <p className="font-heading text-base font-semibold text-card-foreground leading-tight">{title}</p>
           <p className="text-muted-foreground text-xs mt-0.5">{category}</p>
@@ -93,7 +94,20 @@ export default function AboutUs() {
             >
               {projects.map((p) => (
                 <Card key={p.title} customClass="!rounded-xl overflow-hidden shadow-2xl">
-                  <ProjectCard {...p} />
+                  <BorderGlow
+                    className="w-full h-full"
+                    backgroundColor="transparent"
+                    borderRadius={12}
+                    glowRadius={60}
+                    glowIntensity={2.5}
+                    glowColor="84 100 60"
+                    colors={['#a3e635', '#84cc16', '#65a30d']}
+                    coneSpread={45}
+                    edgeSensitivity={5}
+                    fillOpacity={0.8}
+                  >
+                    <ProjectCard {...p} />
+                  </BorderGlow>
                 </Card>
               ))}
             </CardSwap>

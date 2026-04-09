@@ -52,7 +52,7 @@ export default function OurProjects() {
             >
               <div className="flex items-center gap-8">
                 <span className="text-muted-foreground text-sm font-mono">{p.id}</span>
-                <h3 className="font-heading text-2xl lg:text-3xl font-semibold text-foreground group-hover:text-primary transition-colors duration-200">
+                <h3 className="font-heading text-lg lg:text-xl font-semibold text-foreground group-hover:text-primary transition-colors duration-200">
                   {p.title}
                 </h3>
               </div>
@@ -65,7 +65,9 @@ export default function OurProjects() {
           ))}
         </div>
 
-        <TechMarquee />
+        <div className="mt-16">
+          <TechMarquee />
+        </div>
 
       </div>
     </section>
