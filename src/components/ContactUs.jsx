@@ -80,8 +80,8 @@ export default function ContactUs() {
               <p className="text-muted-foreground text-sm uppercase tracking-widest mb-2">Response time</p>
               <p className="text-foreground font-medium">Within 24 hours</p>
             </div>
-            <div className="h-48 rounded-sm bg-muted border border-border flex items-center justify-center mt-4">
-              <p className="text-muted-foreground text-sm">[ Animation: interactive globe / map ]</p>
+            <div className="flex items-center justify-center mt-4 p-8 rounded-sm bg-muted border border-border">
+              <p className="text-primary font-heading text-lg font-semibold">Response within 24 hours — guaranteed.</p>
             </div>
           </div>
         </div>
