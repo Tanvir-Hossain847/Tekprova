@@ -1,0 +1,24 @@
+import { readFileSync, writeFileSync, existsSync } from 'fs';
+import { join } from 'path';
+
+const DATA_PATH = join(process.cwd(), 'src/data/projects.json');
+
+const DEFAULT_PROJECTS = [
+  { id: "01", title: "Buildora Platform",    category: "Web App · Design",       year: "2024", description: "" },
+  { id: "02", title: "Nexus Brand Identity", category: "Branding · Strategy",    year: "2024", description: "" },
+  { id: "03", title: "Pulse Mobile App",     category: "Mobile · UX",            year: "2023", description: "" },
+  { id: "04", title: "Orbit Dashboard",      category: "Web App · Development",  year: "2023", description: "" },
+];
+
+export function getProjects() {
+  if (!existsSync(DATA_PATH)) return DEFAULT_PROJECTS;
+  try {
+    return JSON.parse(readFileSync(DATA_PATH, 'utf-8'));
+  } catch {
+    return DEFAULT_PROJECTS;
+  }
+}
+
+export function saveProjects(projects) {
+  writeFileSync(DATA_PATH, JSON.stringify(projects, null, 2));
+}

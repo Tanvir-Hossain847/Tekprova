@@ -54,7 +54,6 @@ export default function GlobeCanvas({ className = "" }) {
     if (!wrapRef.current || !canvasRef.current) return;
     let globe, rafId;
     let visible = false;
-    let initialized = false;
     let frameCount = 0;
 
     const dpr = Math.min(window.devicePixelRatio, 2);
@@ -69,43 +68,37 @@ export default function GlobeCanvas({ className = "" }) {
     const [cr, cg, cb] = (computed.match(/\d+/g) || ["163","230","53"]).map(Number);
     const accentRGB = [cr / 255, cg / 255, cb / 255];
 
-    function initGlobe() {
-      if (initialized) return;
-      initialized = true;
+    sizeRef.current = wrapRef.current.clientWidth || 320;
+    const s = sizeRef.current;
 
-      sizeRef.current = wrapRef.current.clientWidth || 320;
-      const s = sizeRef.current;
+    globe = createGlobe(canvasRef.current, {
+      devicePixelRatio: dpr,
+      width:  s * dpr,
+      height: s * dpr,
+      phi: 0,
+      theta: 0.3,
+      dark: 1,
+      diffuse: 1.1,
+      mapSamples: 30000,
+      mapBrightness: 5,
+      baseColor: [0.71, 0.686, 0.58],
+      markerColor: accentRGB,
+      glowColor: [0.08, 0.08, 0.08],
+      markers: cities.map(({ location, size }) => ({ location, size })),
+    });
 
-      globe = createGlobe(canvasRef.current, {
-        devicePixelRatio: dpr,
-        width:  s * dpr,
-        height: s * dpr,
-        phi: 0,
-        theta: 0.3,
-        dark: 1,
-        diffuse: 1.1,
-        mapSamples: 30000,
-        mapBrightness: 5,
-        baseColor: [0.71, 0.686, 0.58],
-        markerColor: accentRGB,
-        glowColor: accentRGB,
-        markers: cities.map(({ location, size }) => ({ location, size })),
-      });
-
-      const resizeObserver = new ResizeObserver(() => {
-        const newSize = wrapRef.current?.clientWidth || sizeRef.current;
-        if (newSize !== sizeRef.current && globe) {
-          sizeRef.current = newSize;
-          globe.update({ width: newSize * dpr, height: newSize * dpr });
-          if (canvasRef.current) {
-            canvasRef.current.style.width  = `${newSize}px`;
-            canvasRef.current.style.height = `${newSize}px`;
-          }
+    const resizeObserver = new ResizeObserver(() => {
+      const newSize = wrapRef.current?.clientWidth || sizeRef.current;
+      if (newSize !== sizeRef.current && globe) {
+        sizeRef.current = newSize;
+        globe.update({ width: newSize * dpr, height: newSize * dpr });
+        if (canvasRef.current) {
+          canvasRef.current.style.width  = `${newSize}px`;
+          canvasRef.current.style.height = `${newSize}px`;
         }
-      });
-      resizeObserver.observe(wrapRef.current);
-      cleanupFns.push(() => resizeObserver.disconnect());
-    }
+      }
+    });
+    resizeObserver.observe(wrapRef.current);
 
     function updateLabels() {
       if (!overlayRef.current) return;
@@ -140,21 +133,16 @@ export default function GlobeCanvas({ className = "" }) {
       rafId = requestAnimationFrame(animate);
     }
 
-    const cleanupFns = [];
-
     const intersectionObserver = new IntersectionObserver(([e]) => {
       visible = e.isIntersecting;
-      if (visible) {
-        initGlobe();
-        animate();
-      }
+      if (visible) animate();
     });
     intersectionObserver.observe(canvasRef.current);
 
     return () => {
       if (rafId) cancelAnimationFrame(rafId);
       intersectionObserver.disconnect();
-      cleanupFns.forEach(fn => fn());
+      resizeObserver.disconnect();
       try {
         if (globe) {
           const canvas = canvasRef.current;
